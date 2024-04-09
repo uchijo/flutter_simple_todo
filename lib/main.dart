@@ -25,7 +25,10 @@ class TodoList extends StatefulWidget {
 }
 
 class _TodoListState extends State<TodoList> {
+  // todoを保持するリスト
   final _todos = <Todo>[];
+
+  // 入力フォームのコントローラ
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
 
@@ -33,13 +36,16 @@ class _TodoListState extends State<TodoList> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // todoのリスト。expandedにしないと描画エラーになる
         Expanded(
           child: ListView(
             children: [
               ..._todos.map(
+                // todoをListTileウィジェットに変換
                 (e) => ListTile(
                   title: Text(e.title),
                   subtitle: Text(e.description),
+                  // 押したら削除するボタン
                   trailing: IconButton(
                     icon: const Icon(Icons.delete),
                     onPressed: () {
@@ -53,6 +59,8 @@ class _TodoListState extends State<TodoList> {
             ],
           ),
         ),
+
+        // 画面下部の入力フォーム
         Row(
           children: [
             Expanded(
@@ -71,6 +79,8 @@ class _TodoListState extends State<TodoList> {
                 controller: _descriptionController,
               ),
             ),
+
+            // 押すと現在の入力内容をリストに追加
             ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -93,6 +103,7 @@ class _TodoListState extends State<TodoList> {
   }
 }
 
+// todoを表すクラス
 class Todo {
   final String title;
   final String description;
