@@ -40,6 +40,14 @@ class _TodoListState extends State<TodoList> {
                 (e) => ListTile(
                   title: Text(e.title),
                   subtitle: Text(e.description),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () {
+                      setState(() {
+                        _todos.removeWhere((element) => element.id == e.id);
+                      });
+                    },
+                  ),
                 ),
               ),
             ],
@@ -88,6 +96,7 @@ class _TodoListState extends State<TodoList> {
 class Todo {
   final String title;
   final String description;
+  final String id = DateTime.now().millisecondsSinceEpoch.toString();
 
   Todo({
     required this.title,
